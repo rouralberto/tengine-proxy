@@ -1,2 +1,2 @@
 # tengine-proxy
-Automated Nginx proxy for Docker containers with Let’s Encrypt Certificates
+Automated Tengine proxy for Docker containers with Let’s Encrypt Certificates
