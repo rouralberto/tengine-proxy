@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  main:
+    image: roura/tengine-proxy
+    network_mode: bridge
+    container_name: proxy
+    restart: on-failure
+    ports:
+    - 443:443
+    - 80:80
+    volumes:
+    - /var/run/docker.sock:/tmp/docker.sock:ro
+    - ./proxy/certs:/etc/nginx/certs
+    - ./proxy/acme:/acmecerts
+    - ./proxy/conf.d:/etc/nginx/conf.d
