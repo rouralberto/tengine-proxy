@@ -13,7 +13,7 @@ RUN apt-get update \
     && apt-get install -y -q --no-install-recommends cron ca-certificates && apt-get clean \
     && rm -r /var/lib/apt/lists/* \
     && ln -s /app/network_internal.conf /etc/nginx/network_internal.conf \
-    && ln -s /app/dhparam.pem /etc/nginx/dhparam/dhparam.pem \
+    && mkdir -p /etc/nginx/dhparam && ln -s /app/dhparam.pem /etc/nginx/dhparam/dhparam.pem \
     && wget https://github.com/jwilder/docker-gen/releases/download/$DOCKER_GEN_VERSION/docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz \
     && tar -C /usr/local/bin -xvzf docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz \
     && rm /docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz \

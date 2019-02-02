@@ -4,9 +4,9 @@ Automated Tengine proxy for Docker containers with Let’s Encrypt Certificates.
 This solution gets the inspiration from `neilpang/nginx`. Instead of using Nginx, it sports an improved fork called *Tengine*, which is Nginx with super-powers.
 
 ## Libraries
-- Tengine as proxy server
+- `tengine` as proxy server
 - `docker-gen` to gather metadata from other containers
-- Forego to run the services
+- `shoreman` to run the `Procfile` services
 - `acme.sh` to manage the SSL certificates
 
 ## Usage
@@ -26,6 +26,7 @@ services:
     restart: on-failure
     ports:
     - 80:80
+    - 443:443
     volumes:
     - /var/run/docker.sock:/tmp/docker.sock:ro
     - ./proxy/certs:/etc/nginx/certs
