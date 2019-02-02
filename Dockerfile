@@ -3,6 +3,9 @@ LABEL maintainer="Alberto Roura mail@albertoroura.com"
 
 ENV DOCKER_GEN_VERSION 0.7.4
 ENV DOCKER_HOST unix:///tmp/docker.sock
+ENV AUTO_UPGRADE 1
+ENV LE_WORKING_DIR /acme.sh
+ENV LE_CONFIG_HOME /acmecerts
 
 COPY app /app
 
