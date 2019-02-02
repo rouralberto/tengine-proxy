@@ -48,4 +48,6 @@ Set `VIRTUAL_HOST` as environment variable on the containers you want proxied, l
 If your application runs in a port other than *80*, then set the `VIRTUAL_PORT` variable to the port.
 
 ### Auto-SSL Management
-Set `ENABLE_ACME: 'true'` if your host is Internet-reachable and the proxy will manage the certificates and the renewals for you using Let's Encrypt.
+Set `ENABLE_ACME: 'true'` so the proxy will manage the certificates and the renewals for you using Let's Encrypt.
+Please note that this variable needs to be set on the container running the application to get the certificate.
+Also the domain in `VIRTUAL_HOST` needs to be internet-reachable.
