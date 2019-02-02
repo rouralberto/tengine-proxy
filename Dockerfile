@@ -25,6 +25,6 @@ RUN apt-get update \
 
 WORKDIR /app
 
-VOLUME ["/etc/nginx/certs", "/etc/nginx/dhparam", "/acmecerts"]
+VOLUME ["/etc/nginx/certs", "/etc/nginx/stream.d", "/etc/nginx/dhparam", "/acmecerts"]
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
 CMD ["forego", "start", "-r"]

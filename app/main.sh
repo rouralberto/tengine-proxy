@@ -2,7 +2,7 @@
 
 _SCRIPT_="$0"
 
-updatessl() {
+update_certs() {
   nginx -t && nginx -s reload
   if grep ACME_DOMAINS /etc/nginx/conf.d/default.conf ; then
     for d_list in $(grep ACME_DOMAINS /etc/nginx/conf.d/default.conf | cut -d ' ' -f 2);
@@ -17,10 +17,12 @@ updatessl() {
     done
 
      # Generate Tengine `default.conf` again.
+    echo "updating tengine config..."
     docker-gen /app/default.conf /etc/nginx/conf.d/default.conf
   else
-    echo "skip updatessl"
+    echo "skipping update_certs..."
   fi
+  echo "restarting tengine to apply changes..."
   nginx -t && nginx -s reload
 }
 
