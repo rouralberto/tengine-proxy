@@ -6,7 +6,7 @@ This solution gets the inspiration from `neilpang/nginx`. Instead of using Nginx
 ## Libraries
 - `tengine` as proxy server
 - `docker-gen` to gather metadata from other containers
-- `forego` to run the `Procfile` services
+- `shoreman` to run the `Procfile` services
 - `acme.sh` to manage the SSL certificates
 
 ## Usage
