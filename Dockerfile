@@ -18,7 +18,8 @@ RUN wget https://bin.equinox.io/c/ekMN3bCZFUn/forego-stable-linux-amd64.deb -O /
     && wget https://github.com/jwilder/docker-gen/releases/download/$DOCKER_GEN_VERSION/docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz \
     && tar -C /usr/local/bin -xvzf docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz \
     && rm /docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz \
-    && wget -O- https://get.acme.sh | sh && crontab -l | sed 's#> /dev/null##' | crontab -
+    && wget -O- https://get.acme.sh | sh && crontab -l | sed 's#> /dev/null##' | crontab - \
+    && chmod +x /app/update_certs
 
 WORKDIR /app
 
