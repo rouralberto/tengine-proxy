@@ -51,3 +51,6 @@ If your application runs in a port other than *80*, then set the `VIRTUAL_PORT` 
 Set `ENABLE_ACME: 'true'` so the proxy will manage the certificates and the renewals for you using Let's Encrypt.
 Please note that this variable needs to be set on the container running the application to get the certificate.
 Also the domain in `VIRTUAL_HOST` needs to be internet-reachable.
+
+## Development
+Use the `docker-compose.yml` provided to simplify your development process.

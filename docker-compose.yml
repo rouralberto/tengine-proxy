@@ -2,7 +2,8 @@ version: '3.7'
 
 services:
   main:
-    image: roura/tengine-proxy
+    build:
+      context: .
     network_mode: bridge
     container_name: proxy
     restart: on-failure
@@ -14,3 +15,10 @@ services:
     - ./proxy/certs:/etc/nginx/certs
     - ./proxy/acme:/acmecerts
     - ./proxy/conf.d:/etc/nginx/conf.d
+  web:
+    image: httpd
+    network_mode: bridge
+    container_name: httpd
+    restart: on-failure
+    environment:
+      VIRTUAL_HOST: httpd.docker
