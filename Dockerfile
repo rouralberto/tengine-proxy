@@ -19,10 +19,10 @@ RUN apt-get update \
     && rm /docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz \
     && wget -O- https://get.acme.sh | sh && crontab -l | sed 's#> /dev/null##' | crontab - \
     && wget https://github.com/chrismytton/shoreman/raw/master/shoreman.sh -O /usr/local/bin/shoreman \
-    && chmod +x /usr/local/bin/shoreman
+    && chmod +x /usr/local/bin/shoreman /app/docker-entrypoint /app/update_certs
 
 WORKDIR /app
 
 VOLUME ["/etc/nginx/certs", "/etc/nginx/stream.d", "/acmecerts"]
-ENTRYPOINT ["/app/docker-entrypoint.sh"]
+ENTRYPOINT ["/app/docker-entrypoint"]
 CMD ["shoreman"]
