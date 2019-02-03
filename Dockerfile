@@ -19,7 +19,7 @@ RUN apt-get update \
     && rm /docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz \
     && wget -O- https://get.acme.sh | sh && crontab -l | sed 's#> /dev/null##' | crontab - \
     && wget https://github.com/chrismytton/shoreman/raw/master/shoreman.sh -O /usr/local/bin/shoreman \
-    && chmod +x /usr/local/bin/shoreman /app/update_certs
+    && chmod +x /usr/local/bin/shoreman
 
 WORKDIR /app
 
