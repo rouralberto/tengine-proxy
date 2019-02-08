@@ -1,7 +1,8 @@
 FROM roura/tengine
 LABEL maintainer="Alberto Roura mail@albertoroura.com"
 
-ENV DOCKERGEN_V 0.7.4
+ARG dockergen_v=0.7.4
+
 ENV DOCKER_HOST unix:///tmp/docker.sock
 ENV AUTO_UPGRADE 1
 ENV LE_WORKING_DIR /acme.sh
@@ -13,7 +14,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends cron ca-certificates && apt-get clean && rm -r /var/lib/apt/lists/* \
     && ln -s /app/network_internal.conf /etc/nginx/network_internal.conf \
     && mkdir -p /etc/nginx/dhparam && ln -s /app/dhparam.pem /etc/nginx/dhparam/dhparam.pem \
-    && wget https://github.com/jwilder/docker-gen/releases/download/$DOCKERGEN_V/docker-gen-linux-amd64-$DOCKERGEN_V.tar.gz -O docker-gen.tar.gz \
+    && wget https://github.com/jwilder/docker-gen/releases/download/$dockergen_v/docker-gen-linux-amd64-$dockergen_v.tar.gz -O docker-gen.tar.gz \
     && tar -C /usr/local/bin -xvzf docker-gen.tar.gz && rm docker-gen.tar.gz \
     && wget -O- https://get.acme.sh | sh \
     && wget https://github.com/chrismytton/shoreman/raw/master/shoreman.sh -O /usr/local/bin/shoreman \

@@ -1,7 +1,8 @@
 # tengine-proxy
 Automated Tengine proxy for Docker containers with Let’s Encrypt Certificates.
 
-This solution gets the inspiration from `neilpang/nginx`. Instead of using Nginx, it sports an improved fork called *Tengine*, which is Nginx with super-powers.
+This solution gets the inspiration from `neilpang/nginx`. Instead of using Nginx, it sports an improved fork
+called *Tengine*, which is Nginx with super-powers.
 
 ## Libraries
 - `tengine` as proxy server
@@ -11,7 +12,7 @@ This solution gets the inspiration from `neilpang/nginx`. Instead of using Nginx
 
 ## Usage
 ### docker run
-In the simplest of usages, just run `$ docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro roura/tengine-proxy`.
+In the simplest of usages, just run `docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro roura/tengine-proxy`.
 
 ### docker-compose
 If you want to run it with `docker-compose` alongside another project:
@@ -26,7 +27,7 @@ services:
     restart: on-failure
     ports:
     - 80:80
-    - 443:443
+    #- 443:443
     volumes:
     - /var/run/docker.sock:/tmp/docker.sock:ro
     - ./proxy/certs:/etc/nginx/certs
@@ -39,11 +40,13 @@ services:
     restart: on-failure
     environment:
       VIRTUAL_HOST: httpd.docker
+      #ENABLE_ACME: 'true'
 ```
 
 ## Options
 ### Virtual Hosting
-Set `VIRTUAL_HOST` as environment variable on the containers you want proxied, like `VIRTUAL_HOST: sub.domain.org`. If the container can be called using multiple hostnames, just separate them with a comma.
+Set `VIRTUAL_HOST` as environment variable on the containers you want proxied, like `VIRTUAL_HOST: sub.domain.org`.
+If the container can be called using multiple hostnames, just separate them with a comma.
 
 If your application runs in a port other than *80*, then set the `VIRTUAL_PORT` variable to the port.
 
