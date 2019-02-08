@@ -1,29 +1,29 @@
 #!/usr/bin/env bash
 
-printf "\nreloading tengine with old configuration\n"
+echo "Testing Tengine current configuration..."
 nginx -t && nginx -s reload
 
-printf "\nchecking if there is any server requiring SSL\n"
+echo "Checking if there is any container requiring SSL..."
 if grep ACME_DOMAINS /etc/nginx/conf.d/default.conf
 then
-    for d_list in $(grep ACME_DOMAINS /etc/nginx/conf.d/default.conf | cut -d ' ' -f 2);
+    for acme_domains in $(grep ACME_DOMAINS /etc/nginx/conf.d/default.conf | cut -d ' ' -f 2);
         do
-            d=$(echo "$d_list" | cut -d , -f 1)
+            d=$(echo "$acme_domains" | cut -d , -f 1)
 
-            printf "\ngetting certificates for $d_list\n"
-            /acme.sh/acme.sh --home /acme.sh --config-home /acmecerts --issue \
-            -d $d_list \
+            echo "Getting certificates for $acme_domains..."
+            $LE_WORKING_DIR/acme.sh --home $LE_WORKING_DIR --config-home $LE_CONFIG_HOME --issue \
+            -d $acme_domains \
             --nginx \
             --fullchain-file "/etc/nginx/certs/$d.crt" \
             --key-file "/etc/nginx/certs/$d.key" \
             --reloadcmd "nginx -t && nginx -s reload"
         done
 
-    printf "\napplying new tengine configuration\n"
+    echo "Saving new Tengine configuration..."
     docker-gen /app/default.conf /etc/nginx/conf.d/default.conf
-else
-    printf "\nno servers requiring SSL, skipping acme.sh\n"
-fi
 
-printf "\nreloading tengine with new configuration\n"
-nginx -t && nginx -s reload
+    echo "Reloading Tengine with new configuration..."
+    nginx -t && nginx -s reload
+else
+    echo "No containers requiring SSL, skipping acme.sh"
+fi
