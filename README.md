@@ -17,7 +17,7 @@ In the simplest of usages, just run `docker run -d -p 80:80 -v /var/run/docker.s
 ### docker-compose
 If you want to run it with `docker-compose` alongside another project:
 ```
-version: '3.7'
+version: '3.8'
 
 services:
   proxy:
