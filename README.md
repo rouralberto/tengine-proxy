@@ -1,4 +1,4 @@
-# tengine-proxy
+# Docker Tengine-proxy
 Automated Tengine proxy for Docker containers with Let’s Encrypt Certificates.
 
 This solution gets the inspiration from `neilpang/nginx`. Instead of using Nginx, it sports an improved fork
@@ -12,12 +12,13 @@ called *Tengine*, which is Nginx with super-powers.
 
 ## Usage
 ### docker run
-In the simplest of usages, just run `docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro roura/tengine-proxy`.
+In the simplest of usages, just
+run `docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro roura/tengine-proxy`.
 
 ### docker-compose
 If you want to run it with `docker-compose` alongside another project:
-```
-version: '3.8'
+```yml
+version: "3.9"
 
 services:
   proxy:
@@ -26,13 +27,13 @@ services:
     container_name: proxy
     restart: on-failure
     ports:
-    - 80:80
-    #- 443:443
+      - "80:80"
+    #- "443:443"
     volumes:
-    - /var/run/docker.sock:/tmp/docker.sock:ro
-    - ./proxy/certs:/etc/nginx/certs
-    - ./proxy/acme:/acmecerts
-    - ./proxy/conf.d:/etc/nginx/conf.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./proxy/certs:/etc/nginx/certs
+      - ./proxy/acme:/acmecerts
+      - ./proxy/conf.d:/etc/nginx/conf.d
   web:
     image: httpd
     network_mode: bridge
@@ -40,7 +41,7 @@ services:
     restart: on-failure
     environment:
       VIRTUAL_HOST: httpd.docker
-      #ENABLE_ACME: 'true'
+      #ENABLE_ACME: "true"
 ```
 
 ## Options
@@ -53,7 +54,7 @@ If your application runs in a port other than *80*, then set the `VIRTUAL_PORT` 
 ### Auto-SSL Management
 Set `ENABLE_ACME: 'true'` so the proxy will manage the certificates and the renewals for you using Let's Encrypt.
 Please note that this variable needs to be set on the container running the application to get the certificate.
-Also the domain in `VIRTUAL_HOST` needs to be internet-reachable.
+Also, the domain in `VIRTUAL_HOST` needs to be internet-reachable.
 
 ## Development
 Use the `docker-compose.yml` provided to simplify your development process.

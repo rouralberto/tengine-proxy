@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.9"
 
 services:
   main:
@@ -8,13 +8,13 @@ services:
     container_name: proxy
     restart: on-failure
     ports:
-    - 443:443
-    - 80:80
+      - "443:443"
+      - "80:80"
     volumes:
-    - /var/run/docker.sock:/tmp/docker.sock:ro
-    - ./proxy/certs:/etc/nginx/certs
-    - ./proxy/acme:/acmecerts
-    - ./proxy/conf.d:/etc/nginx/conf.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./proxy/certs:/etc/nginx/certs
+      - ./proxy/acme:/acmecerts
+      - ./proxy/conf.d:/etc/nginx/conf.d
   web:
     image: httpd
     network_mode: bridge
